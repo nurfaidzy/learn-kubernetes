@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+spec:
+  # replicate be 3 pods
+  replicas: 3
+  selector:
+    matchLabels:
+      name: nginx
+  # this will be replicated
+  template:
+    metadata:
+      name: nginx
+      labels:
+        name: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+
+---
+
+# this a service will be exposed via NodePort service
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  selector:
+    name: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080  
+
+# because i got problem with using docker driver on linux  it be tunneling
