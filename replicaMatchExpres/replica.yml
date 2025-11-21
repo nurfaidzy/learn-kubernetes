@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-repli-matchexpres
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - nginx
+      - key: environment
+        operator: In
+        values:
+          - prod
+          - test
+          - staging
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: nginx
+        environment: prod
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  nodeSelector:
+    ssd: "true"
+  containers:
+    - name: nginx-container-gpu
+      image: nginx:latest
+      ports:
+        - containerPort: 80

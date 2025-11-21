@@ -1,0 +1,8 @@
+FROM node:trixie
+
+RUN mkdir ./app
+WORKDIR /app
+
+COPY . .
+
+CMD ["node", "index.js"]
