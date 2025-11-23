@@ -40,7 +40,8 @@ metadata:
     name: nginx-ingress
 spec:
   rules:
-    - host: nginx.nurfaidzy.local
+  # thi host must be matched exactly in host setup etc/hosts. you can check status at use kubectl get svc -n ingress-nginx
+    - host: kubernetes.docker.internal
       http:
         paths:
           - path: /
