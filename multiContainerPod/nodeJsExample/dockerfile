@@ -1,0 +1,16 @@
+FROM node:lts-alpine3.22 AS builder 
+WORKDIR /app/
+COPY index.js .
+RUN npm init -y && npm install express .
+
+FROM node:lts-alpine3.22
+
+ENV PORT=3000
+ENV NAME=Nurfaidzy
+
+WORKDIR /app/
+COPY --from=builder /app/ .
+
+EXPOSE ${PORT}
+
+CMD ["node", "index.js"]
